@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Sokoban</string>
-
     <string name="title_activity_game">GameActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="won_message">You WON!!!</string>
+    <string name="play_again">Play again</string>
+    <string name="next_level">Next level</string>
+    <string name="main_menu">Main menu</string>
 </resources>
