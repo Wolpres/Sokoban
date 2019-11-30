@@ -4,36 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@drawable/pick_level_item_shape">
+    android:background="@drawable/pick_level_item_shape"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/level_name_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/level_name_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/level_ctr_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </LinearLayout>
-
-    <com.example.sokoban.SokoDrawView
-        android:id="@+id/level_view_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:background="@drawable/game_board_background" />
+        android:gravity="center"
+        android:textSize="24sp" />
 
 </LinearLayout>

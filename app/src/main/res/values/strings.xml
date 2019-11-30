@@ -7,4 +7,5 @@
     <string name="play_again">Play again</string>
     <string name="next_level">Next level</string>
     <string name="main_menu">Main menu</string>
+    <string name="level">Level</string>
 </resources>

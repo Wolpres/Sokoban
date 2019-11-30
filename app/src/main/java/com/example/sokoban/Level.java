@@ -3,24 +3,19 @@ package com.example.sokoban;
 import java.io.Serializable;
 
 public class Level implements Serializable {
-    private int[][] originalMap = {
-            {1, 1, 1, 1, 1},
-            {1, 2, 3, 0, 1},
-            {1, 4, 0, 6, 1},
-            {1, 1, 1, 1, 1}
-    };
+    private Integer[][] map;
+    private String name;
 
-    private int[][] actualMap;
-
-    public Level() {
-        actualMap = originalMap;
+    public Level(Integer[][] map, String name) {
+        this.map = map;
+        this.name = name;
     }
 
-    public int[][] getOriginalMap() {
-        return originalMap;
+    public Integer[][] getMap() {
+        return map;
     }
 
-    public int[][] getActualMap() {
-        return actualMap;
+    public String getName() {
+        return name;
     }
 }

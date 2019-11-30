@@ -1,7 +1,9 @@
 package com.example.sokoban;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -36,7 +38,7 @@ public class SokoDrawView extends View {
 //            {1, 1, 1, 1, 1}
 //    };
 
-    protected int[][] map = {
+    protected Integer[][] map = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 0, 3, 2, 2, 3, 1, 0, 1},
@@ -64,6 +66,9 @@ public class SokoDrawView extends View {
     }
 
     private void init(Context context) {
+        Intent intent = ((Activity)context).getIntent();
+        map = ((Level)intent.getSerializableExtra("level")).getMap();
+
         maxLength = maxLength();
 
         bitmap = new Bitmap[7];
@@ -107,7 +112,7 @@ public class SokoDrawView extends View {
 
     private int maxLength() {
         int max = 0;
-        for (int[] ints : map) {
+        for (Integer[] ints : map) {
             if (ints.length > max)
                 max = ints.length;
         }

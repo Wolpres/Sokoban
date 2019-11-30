@@ -127,7 +127,7 @@ public class SokoPlayView extends SokoDrawView {
     }
 
     private boolean isWon() {
-        for (int[] row : map) {
+        for (Integer[] row : map) {
             for (int item : row) {
                 if (item == 3)
                     return false;
