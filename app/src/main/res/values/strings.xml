@@ -8,4 +8,6 @@
     <string name="next_level">Next level</string>
     <string name="main_menu">Main menu</string>
     <string name="level">Level</string>
+    <string name="boardImageView">Board Image</string>
+
 </resources>
