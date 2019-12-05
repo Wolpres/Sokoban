@@ -17,12 +17,8 @@ public class MapDrawer {
     5 - player
     6 - player on goal
      */
-    private Context context;
     private Bitmap[] tiles;
-    private int width;
-    private int height;
     private int tileWidthPx, tileHeightPx;
-    private int viewWidthPx, viewHeightPx;
     private int size;
     private int maxLength;
     private int xOffset, yOffset;
@@ -30,8 +26,6 @@ public class MapDrawer {
     private Integer[][] map;
 
     public MapDrawer(Context context) {
-        this.context = context;
-
         tiles = new Bitmap[7];
         tiles[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.floor);
         tiles[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);

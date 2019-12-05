@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="@drawable/pick_level_item_shape"
-    android:orientation="vertical">
+    android:background="@drawable/pick_level_item_shape">
 
     <TextView
         android:id="@+id/level_name_tv"
-        android:layout_width="match_parent"
+        android:layout_width="261dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/boardImageView"
+        app:srcCompat="@drawable/game_board_background" />
 
 </LinearLayout>

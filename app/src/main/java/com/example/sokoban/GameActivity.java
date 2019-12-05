@@ -1,10 +1,8 @@
 package com.example.sokoban;
 
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -41,11 +39,11 @@ public class GameActivity extends AppCompatActivity {
 		md = new MapDrawer(this);
 		LevelParser lp = new LevelParser(this);
 		level = lp.parse()[0];
-		currentMap = level.getMap();
+		currentMap = level.getMapClone();
 
 		// get needed views (board ImageView, wonScreen include)
 		boardImgV = findViewById(R.id.board);
-		wonScreen = findViewById(R.id.won_screen);
+		initWonScreen();
 
 		redraw();
 	}
@@ -160,6 +158,32 @@ public class GameActivity extends AppCompatActivity {
 	private void won() {
 		Log.d("MySokoban", "you won");
 		wonScreen.setVisibility(View.VISIBLE);
+	}
+
+	private void initWonScreen() {
+		wonScreen = findViewById(R.id.won_screen);
+		findViewById(R.id.playAgainBtn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				reset();
+			}
+		});
+		findViewById(R.id.nextLevelBtn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			}
+		});
+		findViewById(R.id.mainMenuBtn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			}
+		});
+	}
+
+	private void reset() {
+		wonScreen.setVisibility(View.INVISIBLE);
+		currentMap = level.getMapClone();
+		redraw();
 	}
 
 	private void redraw() {

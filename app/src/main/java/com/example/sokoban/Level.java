@@ -15,6 +15,13 @@ public class Level implements Serializable {
         return map;
     }
 
+    public Integer[][] getMapClone() {
+    	Integer[][] clone = new Integer[map.length][];
+    	for (int i = 0 ; i < map.length ; i++)
+    	    clone[i] = map[i].clone();
+        return clone;
+    }
+
     public String getName() {
         return name;
     }
