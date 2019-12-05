@@ -42,6 +42,8 @@ public class PickLevelActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
 		if (resultCode == RESULT_OK) {
 			if (requestCode == 1) {
 				if (data.getBooleanExtra("won", false))
@@ -53,8 +55,7 @@ public class PickLevelActivity extends AppCompatActivity {
 					Intent intent = new Intent(this, GameActivity.class);
 					intent.putExtra("level", levels[lastLevelPos]);
 					startActivityForResult(intent, 1);
-				}
-				else if (opt == 2) {
+				} else if (opt == 2) {
 					la.notifyDataSetChanged();
 				}
 			}

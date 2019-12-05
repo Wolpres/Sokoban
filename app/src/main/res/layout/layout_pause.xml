@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="215dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/popup_shape"
     android:gravity="center"
+    android:minWidth="300dp"
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/pause"
@@ -23,9 +24,19 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:text="@string/resume"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/restart_level_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:text="@string/restart"
         android:textAllCaps="false" />
 
     <Button
@@ -33,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:text="@string/settings"
         android:textAllCaps="false" />
@@ -43,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:text="@string/main_menu"
         android:textAllCaps="false" />

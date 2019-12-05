@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="300dp"
-    android:layout_height="215dp"
+    android:minWidth="300dp"
+    android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
+    android:layout_gravity="center"
     android:background="@drawable/popup_shape"
     android:gravity="center"
     android:orientation="vertical">

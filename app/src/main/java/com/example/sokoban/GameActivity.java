@@ -161,6 +161,7 @@ public class GameActivity extends AppCompatActivity {
 
 	private void won() {
 		won = true;
+		forbitMove = true;
 		wonScreen.setVisibility(View.VISIBLE);
 	}
 
@@ -234,10 +235,19 @@ public class GameActivity extends AppCompatActivity {
 				finish();
 			}
 		});
+
+		findViewById(R.id.restart_level_btn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				reset();
+			}
+		});
 	}
 
 	private void reset() {
+		forbitMove = false;
 		wonScreen.setVisibility(View.INVISIBLE);
+		pauseScreen.setVisibility(View.INVISIBLE);
 		currentMap = level.getMapClone();
 		redraw();
 	}

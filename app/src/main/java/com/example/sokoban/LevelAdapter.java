@@ -58,6 +58,8 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 		holder.preview.setImageBitmap(drawer.draw(level.getMap(), 150, 150)); // TODO
 		if (level.isDone())
 			holder.doneIndicator.setImageDrawable(context.getResources().getDrawable(R.drawable.checked_box));
+		else
+			holder.doneIndicator.setImageDrawable(context.getResources().getDrawable(R.drawable.uncheck_box));
 
 		return row;
 	}
