@@ -20,6 +20,7 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 	Context context;
 	int resource;
 	Level[] levels;
+	MapDrawer drawer;
 
 
 	public LevelAdapter(@NonNull Context context, int resource, @NonNull Level[] data) {
@@ -27,6 +28,7 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 		this.context = context;
 		this.resource = resource;
 		this.levels = data;
+		drawer = new MapDrawer(context);
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -41,6 +43,7 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 			row = inflater.inflate(resource, parent, false); // FIXME
 			holder = new LevelHolder();
 			holder.name = row.findViewById(R.id.level_name_tv);
+			holder.preview = row.findViewById(R.id.level_preview);
 
 			row.setTag(holder);
 		}
@@ -51,11 +54,13 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 		Level level = levels[position];
 
 		holder.name.setText(level.getName());
+		holder.preview.setImageBitmap(drawer.draw(level.getMap(), 150, 150));
 
 		return row;
 	}
 
 	static class LevelHolder implements Serializable {
 		TextView name;
+		ImageView preview;
 	}
 }
