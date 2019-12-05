@@ -1,5 +1,6 @@
 package com.example.sokoban;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,13 +14,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
-	int screenWidth, screenHeight;
-	float touchDownX, touchDownY;
-	MapDrawer md;
-	ImageView boardImgV;
-	Level level;
-	Integer[][] currentMap;
-	View wonScreen;
+	private int screenWidth, screenHeight;
+	private float touchDownX, touchDownY;
+	private MapDrawer md;
+	private ImageView boardImgV;
+	private Level level;
+	private Integer[][] currentMap;
+	private View wonScreen, pauseScreen;
+	private boolean won = false;
+	private boolean forbitMove = false;
 
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 	@Override
@@ -34,22 +37,23 @@ public class GameActivity extends AppCompatActivity {
 		screenWidth = size.x;
 		screenHeight = size.y;
 
-		// TODO move to another activity
 		// load map
 		md = new MapDrawer(this);
-		LevelParser lp = new LevelParser(this);
-		level = lp.parse()[0];
+		level = (Level)getIntent().getSerializableExtra("level");
 		currentMap = level.getMapClone();
 
 		// get needed views (board ImageView, wonScreen include)
 		boardImgV = findViewById(R.id.board);
 		initWonScreen();
+		initPauseScreen();
 
 		redraw();
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		if (forbitMove)
+			return super.onTouchEvent(event);
 		int action = event.getAction();
 		if (action == MotionEvent.ACTION_DOWN) {
 			touchDownX = event.getX();
@@ -156,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
 	}
 
 	private void won() {
-		Log.d("MySokoban", "you won");
+		won = true;
 		wonScreen.setVisibility(View.VISIBLE);
 	}
 
@@ -171,11 +175,63 @@ public class GameActivity extends AppCompatActivity {
 		findViewById(R.id.nextLevelBtn).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.putExtra("option", 1);
+				intent.putExtra("won", won);
+				setResult(RESULT_OK, intent);
+				finish();
 			}
 		});
 		findViewById(R.id.mainMenuBtn).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.putExtra("option", 2);
+				intent.putExtra("won", won);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+		});
+	}
+
+	private void initPauseScreen() {
+		pauseScreen = findViewById(R.id.pause_screen);
+		findViewById(R.id.pause_button).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				boardImgV.setImageBitmap(md.draw(new Integer[][] {{0}}, screenWidth, screenHeight));
+				forbitMove = true;
+				pauseScreen.setVisibility(View.VISIBLE);
+			}
+		});
+
+		findViewById(R.id.resume_btn).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				pauseScreen.setVisibility(View.INVISIBLE);
+				forbitMove = false;
+				redraw();
+			}
+		});
+
+		findViewById(R.id.settings_btn).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+
+		findViewById(R.id.main_menu_btn).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.putExtra("opt", 2);
+				intent.putExtra("won", false);
+				setResult(RESULT_OK, intent);
+				finish();
 			}
 		});
 	}

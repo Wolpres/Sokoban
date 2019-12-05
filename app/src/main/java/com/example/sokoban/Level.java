@@ -5,11 +5,13 @@ import java.io.Serializable;
 public class Level implements Serializable {
     private Integer[][] map;
     private String name;
+    private boolean done;
 
     public Level(Integer[][] map, String name) {
         this.map = map;
         this.name = name;
     }
+
 
     public Integer[][] getMap() {
         return map;
@@ -24,5 +26,14 @@ public class Level implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

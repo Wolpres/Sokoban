@@ -44,6 +44,7 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 			holder = new LevelHolder();
 			holder.name = row.findViewById(R.id.level_name_tv);
 			holder.preview = row.findViewById(R.id.level_preview);
+			holder.doneIndicator = row.findViewById(R.id.done_indicator);
 
 			row.setTag(holder);
 		}
@@ -54,7 +55,9 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 		Level level = levels[position];
 
 		holder.name.setText(level.getName());
-		holder.preview.setImageBitmap(drawer.draw(level.getMap(), 150, 150));
+		holder.preview.setImageBitmap(drawer.draw(level.getMap(), 150, 150)); // TODO
+		if (level.isDone())
+			holder.doneIndicator.setImageDrawable(context.getResources().getDrawable(R.drawable.checked_box));
 
 		return row;
 	}
@@ -62,5 +65,6 @@ public class LevelAdapter extends ArrayAdapter<Level> {
 	static class LevelHolder implements Serializable {
 		TextView name;
 		ImageView preview;
+		ImageView doneIndicator;
 	}
 }

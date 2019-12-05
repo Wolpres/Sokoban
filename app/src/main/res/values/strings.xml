@@ -9,5 +9,9 @@
     <string name="main_menu">Main menu</string>
     <string name="level">Level</string>
     <string name="boardImageView">Board Image</string>
-
+    <string name="is_done">Is level done?</string>
+    <string name="pause_button">Pause button</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume Game</string>
+    <string name="settings">Settings</string>
 </resources>
