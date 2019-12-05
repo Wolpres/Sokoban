@@ -20,7 +20,7 @@
 
     <include
         android:id="@+id/won_screen"
-        layout="@layout/layout_won"
+        layout="@layout/won_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -37,7 +37,7 @@
 
     <include
         android:id="@+id/pause_screen"
-        layout="@layout/layout_pause"
+        layout="@layout/pause_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

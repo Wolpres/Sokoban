@@ -22,18 +22,23 @@ public class MapDrawer {
     private int size;
     private int maxLength;
     private int xOffset, yOffset;
+    private Bitmap playerImg;
+    private Context context;
 
     private Integer[][] map;
 
     public MapDrawer(Context context) {
+        this.context = context;
+        playerImg = BitmapFactory.decodeResource(context.getResources(), R.drawable.player_down);
+
         tiles = new Bitmap[7];
         tiles[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.floor);
         tiles[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);
         tiles[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.target);
         tiles[3] = BitmapFactory.decodeResource(context.getResources(), R.drawable.box_nok);
         tiles[4] = BitmapFactory.decodeResource(context.getResources(), R.drawable.box_ok);
-        tiles[5] = BitmapFactory.decodeResource(context.getResources(), R.drawable.player_down);
-        tiles[6] = BitmapFactory.decodeResource(context.getResources(), R.drawable.player_down);
+        tiles[5] = playerImg;
+        tiles[6] = playerImg;
     }
 
     public Bitmap draw(Integer[][] map, int viewWidthPx, int viewHeightPx) {
