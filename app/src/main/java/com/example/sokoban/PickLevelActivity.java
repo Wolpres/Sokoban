@@ -19,8 +19,11 @@ public class PickLevelActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		levels = new LevelParser(getApplicationContext()).parse();
 		setContentView(R.layout.activity_pick_level);
+
+		LevelPackage pckg = (LevelPackage)getIntent().getSerializableExtra("level_package");
+
+		levels = new LevelParser(getApplicationContext()).parse(pckg.getPath());
 
 		initMyListView();
 	}
@@ -30,13 +33,10 @@ public class PickLevelActivity extends AppCompatActivity {
 		la = new LevelAdapter(this, R.layout.pick_level_item_layout, levels);
 		lv.setAdapter(la);
 
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(PickLevelActivity.this, GameActivity.class);
-				intent.putExtra("level", levels[position]);
-				startActivityForResult(intent, 1);
-			}
+		lv.setOnItemClickListener((parent, view, position, id) -> {
+			Intent intent = new Intent(PickLevelActivity.this, GameActivity.class);
+			intent.putExtra("level", levels[position]);
+			startActivityForResult(intent, 1);
 		});
 	}
 

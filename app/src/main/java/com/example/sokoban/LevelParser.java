@@ -3,6 +3,9 @@ package com.example.sokoban;
 import android.content.Context;
 import android.view.inputmethod.ExtractedTextRequest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,11 +21,14 @@ public class LevelParser {
 		this.context = context;
 	}
 
-	public Level[] parse() {
-		String content = readStream(
-				context.getResources().openRawResource(
-						context.getResources().getIdentifier("links", "raw", context.getPackageName())
-				));
+	public Level[] parse(String path) {
+
+		String content = null;
+		try {
+			content = readStream(new FileInputStream(path));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 
 		ArrayList<String> levelsStr = new ArrayList<>(Arrays.asList(content.split("\n\n")));

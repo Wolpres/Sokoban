@@ -1,6 +1,8 @@
 package com.example.sokoban;
 
-public class LevelPackage {
+import java.io.Serializable;
+
+public class LevelPackage implements Serializable {
 	private String url;
 	private String path;
 	private String name;

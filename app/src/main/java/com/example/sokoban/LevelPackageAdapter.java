@@ -19,18 +19,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
 	private Context context;
 	private int resource;
 	private List<LevelPackage> packages;
 	private String levelStorageDir;
+	private LevelPackageManager lpm;
 
-	public LevelPackageAdapter(@NonNull Context context, int resource, List<LevelPackage> data) {
+	public LevelPackageAdapter(@NonNull Context context, int resource, @NonNull ArrayList<LevelPackage> data) {
 		super(context, resource, data);
 
-
 		this.context = context;
+		lpm = new LevelPackageManager(context);
 
 		levelStorageDir = context.getFilesDir() + "/" + "map_packages";
 		File levelStorage = new File(levelStorageDir);
@@ -38,20 +41,9 @@ public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
 			levelStorage.mkdir();
 
 		this.resource = resource;
-		data.addAll(getDownloadedPackages());
-		Collections.addAll(data, getOnlinePackages());
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-			data.sort(new Comparator<LevelPackage>() {
-				@Override
-				public int compare(LevelPackage o1, LevelPackage o2) {
-					if ((o1.isDownloaded() && o2.isDownloaded()) || (!o1.isDownloaded() && !o2.isDownloaded()))
-						return 0;
-					return o1.isDownloaded() ? -1 : 1;
-				}
-			});
-		}
 		this.packages = data;
 	}
+
 
 	// FIXME is not called
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -80,39 +72,23 @@ public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
 		if (pckg.isDownloaded())
 			holder.downloadBtn.setVisibility(View.INVISIBLE);
 
-		holder.downloadBtn.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
+		holder.downloadBtn.setOnClickListener(v -> {
+			try {
 				new LevelDownloader(context).execute(pckg.getUrl(),
-						levelStorageDir + File.separator + pckg.getName());
+						levelStorageDir + File.separator + pckg.getName()).get();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			lpm.update();
+			packages = lpm.getPackages();
+			notifyDataSetChanged();
 		});
 
 		return row;
 	}
 
-	private ArrayList<LevelPackage> getDownloadedPackages() {
-		File dir = new File(levelStorageDir);
-		File[] levels = dir.listFiles();
-		ArrayList<LevelPackage> pckgs = new ArrayList<>();
-		for (File level : levels)
-			pckgs.add(new LevelPackage(level.getPath(), level.getName(), true));
-		return pckgs;
-	}
-
-	private LevelPackage[] getOnlinePackages() {
-		LevelPackage[] pckgs = new LevelPackage[3];
-
-		pckgs[0] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/sasquatch5Text.html",
-				"Sasquatch V", false);
-		pckgs[1] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/minicosmosText.html",
-				"Minicosmos", false);
-		pckgs[2] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/picokosmosText.html",
-				"Picokosmos", false);
-
-		return pckgs;
-	}
 
 	static class LevelPackageHolder implements Serializable {
 		TextView name;
