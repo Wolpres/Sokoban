@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="100dp"
     android:background="@drawable/pick_level_item_shape"
     android:orientation="vertical">
 
@@ -21,12 +21,12 @@
         android:id="@+id/download_btn"
         android:layout_width="48dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:contentDescription="@string/download_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.504"
+        app:layout_constraintVertical_bias="0.509"
         app:srcCompat="@drawable/download_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

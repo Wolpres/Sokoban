@@ -21,7 +21,7 @@ public class LevelParser {
 	public Level[] parse() {
 		String content = readStream(
 				context.getResources().openRawResource(
-						context.getResources().getIdentifier("levels", "raw", context.getPackageName())
+						context.getResources().getIdentifier("links", "raw", context.getPackageName())
 				));
 
 
