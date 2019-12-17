@@ -32,7 +32,7 @@ public class PickLevelPackageActivity extends AppCompatActivity {
 				startActivityForResult(intent, 1);
 			}
 			else {
-				Toast.makeText(this, "Download package before playing", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Download package before playing", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

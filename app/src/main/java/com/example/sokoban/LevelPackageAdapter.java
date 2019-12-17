@@ -73,15 +73,7 @@ public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
 			holder.downloadBtn.setVisibility(View.INVISIBLE);
 
 		holder.downloadBtn.setOnClickListener(v -> {
-			try {
-				new LevelDownloader(context).execute(pckg.getUrl(),
-						levelStorageDir + File.separator + pckg.getName()).get();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			lpm.update();
+			lpm.DownloadLevel(pckg);
 			packages = lpm.getPackages();
 			notifyDataSetChanged();
 		});
