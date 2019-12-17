@@ -12,7 +12,7 @@ public class PickLevelActivity extends AppCompatActivity {
 	private Level[] levels;
 	private ListView lv;
 	private LevelAdapter la;
-	private static int lastLevelPos;
+	private int lastLevelPos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class PickLevelActivity extends AppCompatActivity {
 		lv.setAdapter(la);
 
 		lv.setOnItemClickListener((parent, view, position, id) -> {
+			lastLevelPos = position;
 			Intent intent = new Intent(PickLevelActivity.this, GameActivity.class);
 			intent.putExtra("level", levels[position]);
 			startActivityForResult(intent, 1);
