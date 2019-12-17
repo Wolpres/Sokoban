@@ -34,6 +34,9 @@ public class Level implements Serializable {
         return name;
     }
 
+    public void setMap(Integer[][] map) {
+        this.map = map;
+    }
 
 
     public boolean isDone() {

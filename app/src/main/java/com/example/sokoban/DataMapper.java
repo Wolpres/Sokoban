@@ -38,7 +38,7 @@ public class DataMapper {
 
 	public List<Level> getLevels(Package pckg) {
 		ArrayList<Level> levels = new ArrayList<>();
-		Cursor cursor = db.rawQuery("SELECT ID, Name, Is_done FROM Level WHERE Package_id = "+pckg+";", null);
+		Cursor cursor = db.rawQuery("SELECT ID, Name, Is_done FROM Level WHERE Package_id = "+pckg.getId()+";", null);
 		if (cursor != null) {
 			try {
 				if (cursor.moveToFirst()) {
@@ -46,7 +46,7 @@ public class DataMapper {
 						levels.add(new Level(
 								cursor.getInt(0),
 								cursor.getString(1),
-								cursor.getInt(3) == 1
+								cursor.getInt(2) == 1
 						));
 					} while (cursor.moveToNext());
 				}

@@ -21,7 +21,7 @@ public class PickLevelActivity extends AppCompatActivity {
 
 		Package pckg = (Package)getIntent().getSerializableExtra("level_package");
 
-		levels = new LevelParser(getApplicationContext()).parse(pckg.getPath());
+		levels = new LevelParser(getApplicationContext()).parse(pckg);
 
 		initMyListView();
 	}

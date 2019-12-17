@@ -70,7 +70,7 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 
 		holder.downloadBtn.setOnClickListener(v -> {
 			lpm.DownloadPackage(pckg);
-			Level[] levels = (new LevelParser(context)).parse(levelStorageDir+File.separator+pckg.getName());
+			Level[] levels = (new LevelParser(context)).quickParse(pckg);
 			DataMapper.getInstance().packageDownloaded(pckg, levels);
 			lpm.update();
 			packages = lpm.getPackages();
