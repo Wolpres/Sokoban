@@ -14,8 +14,5 @@ public class MainActivity extends AppCompatActivity {
 
 		findViewById(R.id.play_btn).setOnClickListener(v -> startActivity(
 				new Intent(MainActivity.this, PickPackageActivity.class)));
-
-		Utilities.initUtils(this);
-		Sokobase.initDB(this);
 	}
 }

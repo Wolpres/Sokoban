@@ -10,9 +10,9 @@ import android.widget.ListView;
 
 public class PickLevelActivity extends AppCompatActivity {
 	private Level[] levels;
-	ListView lv;
-	LevelAdapter la;
-	int lastLevelPos;
+	private ListView lv;
+	private LevelAdapter la;
+	private static int lastLevelPos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +44,22 @@ public class PickLevelActivity extends AppCompatActivity {
 
 		if (resultCode == RESULT_OK) {
 			if (requestCode == 1) {
-				if (data.getBooleanExtra("won", false))
+				if (data.getBooleanExtra("won", false)) {
 					levels[lastLevelPos].setDone(true);
+					DataMapper.getInstance().levelDone(levels[lastLevelPos]);
+				}
 				int opt = data.getIntExtra("option", 2);
 				Log.d("MySokoban", "Option: " + opt);
-				if (opt == 1) {
-					lastLevelPos++;
-					Intent intent = new Intent(this, GameActivity.class);
-					intent.putExtra("level", levels[lastLevelPos]);
-					startActivityForResult(intent, 1);
-				} else if (opt == 2) {
-					la.notifyDataSetChanged();
+				switch (opt) {
+					case 1:
+						lastLevelPos++;
+						Intent intent = new Intent(this, GameActivity.class);
+						intent.putExtra("level", levels[lastLevelPos]);
+						startActivityForResult(intent, 1);
+						break;
+					case 2:
+						la.notifyDataSetChanged();
+						break;
 				}
 			}
 		}

@@ -22,7 +22,6 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 	private Context context;
 	private int resource;
 	private List<Package> packages;
-	private String levelStorageDir;
 	private PackageManager lpm;
 
 	public PackageAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Package> data) {
@@ -31,8 +30,7 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 		this.context = context;
 		lpm = new PackageManager(context);
 
-		levelStorageDir = Utilities.getMapFolderPath();
-		File levelStorage = new File(levelStorageDir);
+		File levelStorage = new File(Utilities.getMapFolderPath());
 		if (!levelStorage.exists())
 			levelStorage.mkdir();
 

@@ -18,13 +18,13 @@ import java.util.concurrent.ExecutionException;
 
 public class PackageManager {
 	private ArrayList<Package> packages;
-	private String levelStorageDir;
+//	private String levelStorageDir;
 	private Context context;
 	private PackageDownloader downloader;
 
 	public PackageManager(Context context) {
 		this.context = context;
-		levelStorageDir = Utilities.getMapFolderPath();
+//		levelStorageDir = Utilities.getMapFolderPath();
 		update();
 	}
 
@@ -52,8 +52,7 @@ public class PackageManager {
 
 	public void DownloadPackage(Package pckg) {
 		try {
-			new PackageDownloader(context).execute(pckg.getUrl(),
-					levelStorageDir + File.separator + pckg.getName()).get();
+			new PackageDownloader(context).execute(pckg.getUrl(), pckg.getPath()).get();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -62,18 +61,8 @@ public class PackageManager {
 		update();
 	}
 
-	public String getLevelStorageDir() {
-		return levelStorageDir;
-	}
-
-
-
 	private class PackageDownloader extends AsyncTask<String, Void, Void> {
 		private Context context = null;
-
-		public PackageDownloader() {
-
-		}
 
 		public PackageDownloader(Context context) {
 			this.context = context;

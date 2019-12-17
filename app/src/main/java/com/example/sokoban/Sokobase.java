@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class Sokobase extends SQLiteOpenHelper {
-	private static Sokobase instance = null;
+	private static Sokobase instance = new Sokobase(Utilities.getAppContext().getApplicationContext());
 
 	private Sokobase(Context context) {
 		super(context, "Sokobase", null, 3);
@@ -53,12 +53,9 @@ public class Sokobase extends SQLiteOpenHelper {
 
 	private Package[] getDefaultPackages() {
 		Package[] packages = new Package[3];
-		packages[0] = new Package("http://sneezingtiger.com/sokoban/levels/sasquatch5Text.html",
-				"Sasquatch V", false);
-		packages[1] = new Package("http://sneezingtiger.com/sokoban/levels/minicosmosText.html",
-				"Minicosmos", false);
-		packages[2] = new Package("http://sneezingtiger.com/sokoban/levels/picokosmosText.html",
-				"Picokosmos", false);
+		packages[0] = new Package("Sasquatch V", "http://sneezingtiger.com/sokoban/levels/sasquatch5Text.html");
+		packages[1] = new Package("Minicosmos", "http://sneezingtiger.com/sokoban/levels/minicosmosText.html");
+		packages[2] = new Package("Picokosmos", "http://sneezingtiger.com/sokoban/levels/picokosmosText.html");
 
 		return packages;
 	}
@@ -68,17 +65,6 @@ public class Sokobase extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS Level");
 		db.execSQL("DROP TABLE IF EXISTS Package");
 		onCreate(db);
-	}
-
-	public static void initDB(Context context) {
-
-		instance = new Sokobase(context.getApplicationContext());
-	}
-
-	public static Sokobase getInstance(Context context) {
-		if (instance == null)
-			instance = new Sokobase(context.getApplicationContext());
-		return instance;
 	}
 
 	public static Sokobase getInstance() {

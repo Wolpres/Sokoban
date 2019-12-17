@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LevelParser {
@@ -25,11 +26,10 @@ public class LevelParser {
 
 		String content = null;
 		try {
-			content = readStream(new FileInputStream(Utilities.getMapFolderPath() + pckg.getName()));
+			content = readStream(new FileInputStream(pckg.getPath()));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 
 		ArrayList<String> levelsStr = new ArrayList<>(Arrays.asList(content.split("\n\n")));
 		List<Level> levels = DataMapper.getInstance().getLevels(pckg);
@@ -82,15 +82,26 @@ public class LevelParser {
 	public Level[] quickParse(Package pckg) {
 		String content = null;
 		try {
-			content = readStream(new FileInputStream(Utilities.getMapFolderPath() + pckg.getName()));
+			content = readStream(new FileInputStream(pckg.getPath()));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		content = content.replaceAll("[^#@$.*+\n]", "");
 
-		Level[] levels = new Level[(content.split("\n\n")).length];
+		String[] levelsStr = content.split("\n\n");
+		int ctr = 0;
+		for (int i = 0 ; i < levelsStr.length ; i++) {
+			try {
+				mapParser(levelsStr[i]);
+				ctr++;
+			}
+			catch (Exception e) {
+				// continue
+			}
+		}
+
+		Level[] levels = new Level[ctr];
 		for (int i = 0 ; i < levels.length ; i++) {
-			levels[i] = new Level(0, context.getResources().getString(R.string.level) + " " + i+1, false);
+			levels[i] = new Level(0, context.getResources().getString(R.string.level) + " " + (i+1), false);
 		}
 
 		return levels;

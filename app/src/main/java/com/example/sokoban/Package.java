@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Package implements Serializable {
 	private int id;
 	private String url;
-	private String path;
 	private String name;
 	private boolean downloaded = false;
 
@@ -13,20 +12,14 @@ public class Package implements Serializable {
 
 	public Package(int id, String name, String url, boolean downloaded) {
 		this.id = id;
-		this.downloaded = downloaded;
 		this.name = name;
 		this.url = url;
-		this.path = Utilities.getMapFolderPath() + name;
+		this.downloaded = downloaded;
 	}
 
 
-	public Package(String url, String name, boolean downloaded) {
-		this.downloaded = downloaded;
-		this.name = name;
-		if (downloaded)
-			this.path = url;
-		else
-			this.url = url;
+	public Package(String name, String url) {
+		this(0, name, url, false);
 	}
 
 	public String getName() {
@@ -38,11 +31,7 @@ public class Package implements Serializable {
 	}
 
 	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
+		return Utilities.getMapFolderPath() + getName();
 	}
 
 	public boolean isDownloaded() {

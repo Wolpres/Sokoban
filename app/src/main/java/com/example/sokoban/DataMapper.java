@@ -73,6 +73,13 @@ public class DataMapper {
 		}
 	}
 
+	public void levelDone(Level level) {
+		level.setDone(true);
+		ContentValues cv = new ContentValues();
+		cv.put("is_done", 1);
+		db.update("Level", cv, "ID = " + level.getId(), null);
+	}
+
 	public static DataMapper getInstance() {
 		if (instance == null)
 			instance = new DataMapper();
