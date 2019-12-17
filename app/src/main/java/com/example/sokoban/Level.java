@@ -3,6 +3,7 @@ package com.example.sokoban;
 import java.io.Serializable;
 
 public class Level implements Serializable {
+    private int id;
     private Integer[][] map;
     private String name;
     private boolean done;
@@ -12,6 +13,11 @@ public class Level implements Serializable {
         this.name = name;
     }
 
+    public Level(int id, String name, boolean done) {
+        this.id = id;
+        this.name = name;
+        this.done = done;
+    }
 
     public Integer[][] getMap() {
         return map;
@@ -29,11 +35,16 @@ public class Level implements Serializable {
     }
 
 
+
     public boolean isDone() {
         return done;
     }
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public int getId() {
+        return id;
     }
 }

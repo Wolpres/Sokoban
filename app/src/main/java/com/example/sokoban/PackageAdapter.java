@@ -16,26 +16,22 @@ import androidx.annotation.RequiresApi;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
-public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
+public class PackageAdapter extends ArrayAdapter<Package> {
 	private Context context;
 	private int resource;
-	private List<LevelPackage> packages;
+	private List<Package> packages;
 	private String levelStorageDir;
-	private LevelPackageManager lpm;
+	private PackageManager lpm;
 
-	public LevelPackageAdapter(@NonNull Context context, int resource, @NonNull ArrayList<LevelPackage> data) {
+	public PackageAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Package> data) {
 		super(context, resource, data);
 
 		this.context = context;
-		lpm = new LevelPackageManager(context);
+		lpm = new PackageManager(context);
 
-		levelStorageDir = context.getFilesDir() + "/" + "map_packages";
+		levelStorageDir = Utilities.getMapFolderPath();
 		File levelStorage = new File(levelStorageDir);
 		if (!levelStorage.exists())
 			levelStorage.mkdir();
@@ -66,14 +62,17 @@ public class LevelPackageAdapter extends ArrayAdapter<LevelPackage> {
 			holder = (LevelPackageHolder) row.getTag();
 		}
 
-		final LevelPackage pckg = packages.get(position);
+		final Package pckg = packages.get(position);
 
 		holder.name.setText(pckg.getName().replace("_", " "));
 		if (pckg.isDownloaded())
 			holder.downloadBtn.setVisibility(View.INVISIBLE);
 
 		holder.downloadBtn.setOnClickListener(v -> {
-			lpm.DownloadLevel(pckg);
+			lpm.DownloadPackage(pckg);
+			Level[] levels = (new LevelParser(context)).parse(levelStorageDir+File.separator+pckg.getName());
+			DataMapper.getInstance().packageDownloaded(pckg, levels);
+			lpm.update();
 			packages = lpm.getPackages();
 			notifyDataSetChanged();
 		});

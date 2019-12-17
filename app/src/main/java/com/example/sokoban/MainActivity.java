@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,8 +13,9 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		findViewById(R.id.play_btn).setOnClickListener(v -> startActivity(
-				new Intent(MainActivity.this, PickLevelPackageActivity.class)));
+				new Intent(MainActivity.this, PickPackageActivity.class)));
 
-		DBHandler.initDB(this);
+		Utilities.initUtils(this);
+		Sokobase.initDB(this);
 	}
 }

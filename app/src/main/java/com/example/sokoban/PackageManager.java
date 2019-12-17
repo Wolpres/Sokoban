@@ -3,7 +3,6 @@ package com.example.sokoban;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -12,29 +11,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
-public class LevelPackageManager {
-	private ArrayList<LevelPackage> packages;
+public class PackageManager {
+	private ArrayList<Package> packages;
 	private String levelStorageDir;
 	private Context context;
-	private LevelDownloader downloader;
+	private PackageDownloader downloader;
 
-	public LevelPackageManager(Context context) {
+	public PackageManager(Context context) {
 		this.context = context;
-		levelStorageDir = context.getFilesDir() + File.separator + "map_packages";
+		levelStorageDir = Utilities.getMapFolderPath();
 		update();
 	}
 
 	public void update() {
-		packages = getDownloadedPackages();
-		getOnlinePackages(packages);
+		packages = (ArrayList<Package>)DataMapper.getInstance().getPackages();
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			packages.sort((o1, o2) -> {
@@ -51,13 +46,13 @@ public class LevelPackageManager {
 		}
 	}
 
-	public ArrayList<LevelPackage> getPackages() {
+	public ArrayList<Package> getPackages() {
 		return packages;
 	}
 
-	public void DownloadLevel(LevelPackage pckg) {
+	public void DownloadPackage(Package pckg) {
 		try {
-			new LevelDownloader(context).execute(pckg.getUrl(),
+			new PackageDownloader(context).execute(pckg.getUrl(),
 					levelStorageDir + File.separator + pckg.getName()).get();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
@@ -71,43 +66,16 @@ public class LevelPackageManager {
 		return levelStorageDir;
 	}
 
-	private ArrayList<LevelPackage> getDownloadedPackages() {
-		File dir = new File(levelStorageDir);
-		if (!dir.exists())
-			dir.mkdir();
-		File[] levels = dir.listFiles();
-		ArrayList<LevelPackage> pckgs = new ArrayList<>();
-		for (File level : levels)
-			pckgs.add(new LevelPackage(level.getAbsolutePath(), level.getName(), true));
-		return pckgs;
-	}
-
-	private void getOnlinePackages(ArrayList<LevelPackage> pckgs) {
-		LevelPackage[] pckgsArr = new LevelPackage[3];
-		pckgsArr[0] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/sasquatch5Text.html",
-				"Sasquatch V", false);
-		pckgsArr[1] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/minicosmosText.html",
-				"Minicosmos", false);
-		pckgsArr[2] = new LevelPackage("http://sneezingtiger.com/sokoban/levels/picokosmosText.html",
-				"Picokosmos", false);
-
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-			List<String> names = pckgs.stream().map(LevelPackage::getName).collect(Collectors.toList());
-			for (LevelPackage pckg : pckgsArr)
-				if (!(names.contains(pckg.getName())))
-					pckgs.add(pckg);
-		}
-	}
 
 
-	private class LevelDownloader extends AsyncTask<String, Void, Void> {
+	private class PackageDownloader extends AsyncTask<String, Void, Void> {
 		private Context context = null;
 
-		public LevelDownloader() {
+		public PackageDownloader() {
 
 		}
 
-		public LevelDownloader(Context context) {
+		public PackageDownloader(Context context) {
 			this.context = context;
 		}
 

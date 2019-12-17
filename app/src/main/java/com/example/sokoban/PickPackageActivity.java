@@ -6,28 +6,28 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class PickLevelPackageActivity extends AppCompatActivity {
-	LevelPackageAdapter lpa;
+public class PickPackageActivity extends AppCompatActivity {
+	PackageAdapter pa;
 	ListView lv;
 	LevelParser lp;
-	LevelPackageManager lpm;
+	PackageManager pm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pick_level_package);
 
-		lpm = new LevelPackageManager(this);
+		pm = new PackageManager(this);
 
 		lp = new LevelParser(this);
-		lv = findViewById(R.id.level_package_picker);
-		lpa = new LevelPackageAdapter(this, R.layout.pick_level_package_item_layout, lpm.getPackages());
-		lv.setAdapter(lpa);
+		lv = findViewById(R.id.package_picker);
+		pa = new PackageAdapter(this, R.layout.pick_package_item_layout, pm.getPackages());
+		lv.setAdapter(pa);
 		lv.setOnItemClickListener((parent, view, position, id) -> {
-			lpm.update();
-			LevelPackage pckg = lpm.getPackages().get(position);
+			pm.update();
+			Package pckg = pm.getPackages().get(position);
 			if (pckg.isDownloaded()) {
-				Intent intent = new Intent(PickLevelPackageActivity.this, PickLevelActivity.class);
+				Intent intent = new Intent(PickPackageActivity.this, PickLevelActivity.class);
 				intent.putExtra("level_package", pckg);
 				startActivityForResult(intent, 1);
 			}

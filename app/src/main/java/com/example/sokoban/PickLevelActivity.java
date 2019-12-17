@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class PickLevelActivity extends AppCompatActivity {
@@ -21,7 +19,7 @@ public class PickLevelActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pick_level);
 
-		LevelPackage pckg = (LevelPackage)getIntent().getSerializableExtra("level_package");
+		Package pckg = (Package)getIntent().getSerializableExtra("level_package");
 
 		levels = new LevelParser(getApplicationContext()).parse(pckg.getPath());
 
