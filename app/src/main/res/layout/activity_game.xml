@@ -54,11 +54,21 @@
 
     <ImageView
         android:id="@+id/pause_button"
-        android:layout_width="72dp"
+        android:layout_width="62dp"
         android:layout_height="62dp"
         android:contentDescription="@string/pause_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/menu_button" />
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:contentDescription="@string/back_button"
+        android:padding="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
