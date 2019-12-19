@@ -80,6 +80,14 @@ public class DataMapper {
 		db.update("Level", cv, "ID = " + level.getId(), null);
 	}
 
+	public void reset() {
+		ContentValues cv = new ContentValues();
+		cv.put("Is_downloaded", 0);
+		db.update("Package", cv, "", null);
+
+		db.execSQL("DELETE FROM Level;");
+	}
+
 	public static DataMapper getInstance() {
 		if (instance == null)
 			instance = new DataMapper();

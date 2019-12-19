@@ -5,5 +5,6 @@ public class Sokoban extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Utilities.initUtils(getApplicationContext());
 	}
 }

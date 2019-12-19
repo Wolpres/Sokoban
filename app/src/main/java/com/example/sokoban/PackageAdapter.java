@@ -23,13 +23,13 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 	private Context context;
 	private int resource;
 	private List<Package> packages;
-	private PackageManager lpm;
+	private PackageManager pm;
 
 	public PackageAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Package> data) {
 		super(context, resource, data);
 
 		this.context = context;
-		lpm = new PackageManager(context);
+		pm = new PackageManager(context);
 
 		File levelStorage = new File(Utilities.getMapFolderPath());
 		if (!levelStorage.exists())
@@ -69,16 +69,20 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 
 		holder.downloadBtn.setOnClickListener(v -> {
 			String conn = Settings.getConnectionMethod();
-			if (((conn.equals("wifi") || conn.equals("any")) && Utilities.isWifiConnected()) ||
-					(conn.equals("mobile") || conn.equals("any")) && Utilities.isMobileConnected()) {
-				lpm.DownloadPackage(pckg);
-				Level[] levels = (new LevelParser(context)).quickParse(pckg);
-				DataMapper.getInstance().packageDownloaded(pckg, levels);
-				lpm.update();
-				packages = lpm.getPackages();
-				notifyDataSetChanged();
+			try {
+				if (((conn.equals("wifi") || conn.equals("any")) && Utilities.isWifiConnected()) ||
+						(conn.equals("mobile") || conn.equals("any")) && Utilities.isMobileConnected()) {
+					pm.downloadPackage(pckg);
+					Level[] levels = (new LevelParser(context)).quickParse(pckg);
+					DataMapper.getInstance().packageDownloaded(pckg, levels);
+					pm.update();
+					packages = pm.getPackages();
+					notifyDataSetChanged();
+				} else {
+					Toast.makeText(context, "Internet connection not available", Toast.LENGTH_SHORT).show();
+				}
 			}
-			else {
+			catch (Exception e) {
 				Toast.makeText(context, "Internet connection not available", Toast.LENGTH_SHORT).show();
 			}
 		});

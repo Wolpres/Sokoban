@@ -7,6 +7,7 @@ import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.FileUtils;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -52,7 +53,7 @@ public class PackageManager {
 		return packages;
 	}
 
-	public void DownloadPackage(Package pckg) {
+	public void downloadPackage(Package pckg) {
 		try {
 			new PackageDownloader(context).execute(pckg.getUrl(), pckg.getPath()).get();
 		} catch (ExecutionException e) {
@@ -63,6 +64,13 @@ public class PackageManager {
 			return;
 		}
 		update();
+	}
+
+	public void deleteAllPackages() {
+		File[] files = new File(Utilities.getMapFolderPath()).listFiles();
+		for (File f : files) {
+			f.delete();
+		}
 	}
 
 	private class PackageDownloader extends AsyncTask<String, Void, Void> {

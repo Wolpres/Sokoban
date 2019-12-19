@@ -9,12 +9,13 @@ import java.io.File;
 public class Utilities {
 	private static String mapFolderPath;
 	private static Context appContext;
-	private static ConnectivityManager connMgr = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-	private static NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+	private static NetworkInfo activeInfo;
 
 	public static void initUtils(Context context) {
 		appContext = context;
 		mapFolderPath = context.getFilesDir() + File.separator + "map_packages" + File.separator;
+		ConnectivityManager connMgr = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+		activeInfo = connMgr.getActiveNetworkInfo();
 	}
 
 	public static Context getAppContext() {

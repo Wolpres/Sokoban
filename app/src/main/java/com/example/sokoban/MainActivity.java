@@ -12,7 +12,6 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Utilities.initUtils(getApplicationContext());
 
 		findViewById(R.id.play_btn).setOnClickListener(v -> startActivity(
 				new Intent(MainActivity.this, PickPackageActivity.class)));
