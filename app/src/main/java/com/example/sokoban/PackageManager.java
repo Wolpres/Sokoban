@@ -18,13 +18,10 @@ import java.util.concurrent.ExecutionException;
 
 public class PackageManager {
 	private ArrayList<Package> packages;
-//	private String levelStorageDir;
 	private Context context;
-	private PackageDownloader downloader;
 
 	public PackageManager(Context context) {
 		this.context = context;
-//		levelStorageDir = Utilities.getMapFolderPath();
 		update();
 	}
 
