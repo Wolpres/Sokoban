@@ -25,13 +25,13 @@ public class Utilities {
 		return mapFolderPath;
 	}
 
-	private static boolean isMobileConnected() {
+	public static boolean isMobileConnected() {
 		if (activeInfo != null && activeInfo.isConnected())
 			return activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
 		return false;
 	}
 
-	private static boolean isWifiConnected() {
+	public static boolean isWifiConnected() {
 		if (activeInfo != null && activeInfo.isConnected())
 			return activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
 		return false;

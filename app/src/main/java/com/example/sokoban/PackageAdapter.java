@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,12 +68,19 @@ public class PackageAdapter extends ArrayAdapter<Package> {
 			holder.downloadBtn.setVisibility(View.INVISIBLE);
 
 		holder.downloadBtn.setOnClickListener(v -> {
-			lpm.DownloadPackage(pckg);
-			Level[] levels = (new LevelParser(context)).quickParse(pckg);
-			DataMapper.getInstance().packageDownloaded(pckg, levels);
-			lpm.update();
-			packages = lpm.getPackages();
-			notifyDataSetChanged();
+			String conn = Settings.getConnectionMethod();
+			if (((conn.equals("wifi") || conn.equals("any")) && Utilities.isWifiConnected()) ||
+					(conn.equals("mobile") || conn.equals("any")) && Utilities.isMobileConnected()) {
+				lpm.DownloadPackage(pckg);
+				Level[] levels = (new LevelParser(context)).quickParse(pckg);
+				DataMapper.getInstance().packageDownloaded(pckg, levels);
+				lpm.update();
+				packages = lpm.getPackages();
+				notifyDataSetChanged();
+			}
+			else {
+				Toast.makeText(context, "Internet connection not available", Toast.LENGTH_SHORT).show();
+			}
 		});
 
 		return row;

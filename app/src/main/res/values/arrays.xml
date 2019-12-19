@@ -18,7 +18,7 @@
 
     <string-array name="connection_values">
         <item>wifi</item>
-        <item>mobile_data</item>
-        <item>wifi_data</item>
+        <item>mobile</item>
+        <item>any</item>
     </string-array>
 </resources>
