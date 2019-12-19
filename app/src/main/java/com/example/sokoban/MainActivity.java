@@ -14,5 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
 		findViewById(R.id.play_btn).setOnClickListener(v -> startActivity(
 				new Intent(MainActivity.this, PickPackageActivity.class)));
+		findViewById(R.id.settings_btn).setOnClickListener(v -> startActivity(
+				new Intent(MainActivity.this, SettingsActivity.class)));
 	}
 }

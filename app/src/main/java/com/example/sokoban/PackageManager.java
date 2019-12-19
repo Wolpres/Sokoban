@@ -1,6 +1,10 @@
 package com.example.sokoban;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.widget.Toast;
@@ -13,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -54,6 +59,8 @@ public class PackageManager {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			return;
 		}
 		update();
 	}
@@ -65,26 +72,28 @@ public class PackageManager {
 			this.context = context;
 		}
 
+
+
 		@Override
 		protected Void doInBackground(String... args) {
-			try {
-				URL url = new URL(args[0]);
-				URLConnection conn = url.openConnection();
-				InputStream input = new BufferedInputStream(url.openStream(), 8192);
-				OutputStream output = new FileOutputStream(args[1]);
-				byte data[] = new byte[1024];
+				try {
+					URL url = new URL(args[0]);
+					URLConnection conn = url.openConnection();
+					InputStream input = new BufferedInputStream(url.openStream(), 8192);
+					OutputStream output = new FileOutputStream(args[1]);
+					byte data[] = new byte[1024];
 
-				int count;
-				while ((count = input.read(data)) != -1)
-					output.write(data, 0, count);
+					int count;
+					while ((count = input.read(data)) != -1)
+						output.write(data, 0, count);
 
-				output.flush();
-				output.close();
-				input.close();
+					output.flush();
+					output.close();
+					input.close();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			return null;
 		}
 

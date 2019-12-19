@@ -11,10 +11,31 @@
     <string name="boardImageView">Board Image</string>
     <string name="is_done">Is level done?</string>
     <string name="pause_button">Pause button</string>
+    <string name="back_button">Back button</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume Game</string>
     <string name="settings">Settings</string>
     <string name="restart">Restart game</string>
     <string name="download_btn">Download button</string>
     <string name="play_game">Play Game</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="wifi_data">Wi-Fi/Mobile data</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="mobile_data">Mobile data</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="connection">Connection</string>
 </resources>
